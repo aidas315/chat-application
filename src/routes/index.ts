@@ -2,13 +2,14 @@ import jwt from "jsonwebtoken";
 import userRouter from "./users";
 import { User } from "../models";
 import passport from "../config/passport";
+import { isAuthorized } from "../config/middlewares";
 import { body, validationResult } from "express-validator";
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 
 const router = Router();
 
 router.use(passport.initialize());
-router.use("/users", passport.authenticate("jwt", {session: false}), userRouter);
+router.use("/users", isAuthorized, userRouter);
 
 router.get("/", (req: Request, res: Response) => {
     res.status(200).json({
