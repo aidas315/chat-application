@@ -5,15 +5,13 @@ import {
 
 @pre<UserSchema>("save", function (next) {
     let user = this;
-    if (!user.isModified("password")) return next();
-
-    bcrypt.hash(user.password, 10, function (error, hash) {
-        if (error) next(error);
-        user.password = hash;
-    });
-
+    if (user.isModified("password") || user.isNew)
+    {
+        console.log(user.password)
+        user.password = UserSchema.hashPassword(user.password);
+        console.log(user.password)
+    }
     next();
-
 })
 
 class UserSchema extends Typegoose {
@@ -30,15 +28,18 @@ class UserSchema extends Typegoose {
 
     @staticMethod
     public static verifyPasswords(hash: any, password: string): Boolean {
-        bcrypt.compare(password, hash, (error, res) => {
-            return res;
-        });
-        return false;
+        return bcrypt.compareSync(password, hash) || false;
+    }
+
+    @staticMethod 
+    public static hashPassword(password: string | undefined) : any {
+        return bcrypt.hashSync(password, 10) || null;
     }
 };
 
 export const User = new UserSchema().getModelForClass(UserSchema, {
     schemaOptions: {
-        timestamps: true
+        timestamps: true,
+        collection: "users"
     }
 });
