@@ -1,9 +1,14 @@
 import http from "http";
 import app from "./app"; 
 import "reflect-metadata";
+import socketio from "socket.io";
+import socketServer from "./socket.io";
 
 const args = process.argv.slice(2);
 const server = http.createServer(app);
+const io = socketServer(socketio(server, {
+    origins: '*:*'
+}));
 
 args.forEach(arg => {
     let arr = arg.split("=");
@@ -23,3 +28,4 @@ args.forEach(arg => {
 });
 
 server.listen(process.env.PORT || 5000);
+
