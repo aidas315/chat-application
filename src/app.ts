@@ -8,10 +8,10 @@ const app = express();
 
 app.use(cors());
 app.use(morgan("dev"));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false,
+    extended: true,
 }));
+app.use(bodyParser.json());
 app.use(router);
 
 export default app;
