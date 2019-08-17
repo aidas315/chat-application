@@ -12,9 +12,6 @@
   "author": "Abdul Rehman",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.19.1",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.2",
     "@types/bcrypt": "^3.0.0",
     "@types/bluebird": "^3.5.27",
     "@types/cors": "^2.8.5",
@@ -26,19 +23,26 @@
     "@types/passport": "^1.0.0",
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
-    "typegoose": "^5.7.2"
+    "@types/socket.io": "^2.1.2",
+    "nodemon": "^1.19.1",
+    "socket.io-client": "^2.2.0",
+    "ts-node": "^8.3.0",
+    "typegoose": "^5.7.2",
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.1",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "socket.io": "^2.2.0"
   }
 }
