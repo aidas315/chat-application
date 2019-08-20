@@ -2,29 +2,28 @@ import bcrypt from "bcrypt";
 import {
     prop, Typegoose, pre, staticMethod
 } from 'typegoose';
+import { ObjectId } from "bson";
 
 @pre<UserSchema>("save", function (next) {
     let user = this;
     if (user.isModified("password") || user.isNew)
     {
-        console.log(user.password)
         user.password = UserSchema.hashPassword(user.password);
-        console.log(user.password)
     }
     next();
 })
 
-class UserSchema extends Typegoose {
+export class UserSchema extends Typegoose {
     @prop({ required: true })
         name?: string;
-    @prop({ required: true, unique: true })
+    @prop({ required: true })
         email?: string;
-    @prop({ required: true, unique: true })
+    @prop({ required: true })
         username?: string;
     @prop({ required: true })
         password?: string;
-    @prop()
-        friends?: UserSchema[];
+    @prop({ ref: "users" })
+        friends?: ObjectId[];
 
     @staticMethod
     public static verifyPasswords(hash: any, password: string): Boolean {
